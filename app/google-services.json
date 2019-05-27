@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "84093472977",
+    "firebase_url": "https://androidfirebase-484bb.firebaseio.com",
+    "project_id": "androidfirebase-484bb",
+    "storage_bucket": "androidfirebase-484bb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:84093472977:android:3456dd8c23247e8f",
+        "android_client_info": {
+          "package_name": "com.example.chatkotlinfirebase"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "84093472977-chuhtl74o78at8abqc5lpml9unhihuf3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCVbyj3NXi4DBTteTy306Gr36sY-sk1MlE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "84093472977-chuhtl74o78at8abqc5lpml9unhihuf3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
