@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
@@ -39,12 +40,27 @@ class FriendListActivity : AppCompatActivity() {
                 p0.children.forEach{
                     val user = it.getValue(User::class.java) as User //bawa data dengan model
 
-                        adapter.add(AdapterFriendList(user))
+
+
+                    //untuk menampilkan user selain kita
+                    if(user != null){
+                        if(user.uid != FirebaseAuth.getInstance().uid){
+                            adapter.add(AdapterFriendList(user))
+                        }
+
+                    }
 
                     // pindah ke chat room
 
                     adapter.setOnItemClickListener { item, view ->
-                        ChatRoomActivity.launchIntent(view.context)
+
+                        val friendItem = item as AdapterFriendList
+
+                        val intent = Intent(view.context,ChatRoomActivity::class.java)
+                        //jika mau menggukan methode ini harus menggunakan parse label di kelas User
+                        intent.putExtra(FRIEND_KEY,friendItem.user)
+                        startActivity(intent)
+
 
                     }
 
@@ -58,6 +74,8 @@ class FriendListActivity : AppCompatActivity() {
     }
 
     companion object {
+
+        val FRIEND_KEY = "friend_key "
         fun launchIntent(context: Context){
             val intent = Intent(context,FriendListActivity::class.java)
             context.startActivity(intent)

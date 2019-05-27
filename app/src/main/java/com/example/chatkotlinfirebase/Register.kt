@@ -118,6 +118,7 @@ class Register : AppCompatActivity() {
         val db = FirebaseDatabase.getInstance().getReference("user/$uid")
         db.setValue(
             User(
+                uid.toString(),
                 txt_nama.text.toString(),
                 photoUrl,
                 txt_email.text.toString()

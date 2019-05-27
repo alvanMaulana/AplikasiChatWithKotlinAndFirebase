@@ -6,6 +6,10 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import kotlinx.android.synthetic.main.activity_login.*
 
 class Login : AppCompatActivity() {
@@ -22,21 +26,10 @@ initView()
 
     private fun initView() {
         btn_login.setOnClickListener{
-            val email = login_email.text.toString().trim()
-            val password = login_password.text.toString()
-            firebase.signInWithEmailAndPassword(email,password)
-                .addOnCompleteListener{
-                    if(it.isSuccessful){
-                        Toast.makeText(this,"user berhasil Login", Toast.LENGTH_LONG).show()
-                        Home.launchIntent(this)
 
-                    }
-                    else{
-                        Toast.makeText(this,"user gagal Login", Toast.LENGTH_LONG).show()
+            loginToFirebase()
 
-                    }
 
-                }
         }
 
 
@@ -45,7 +38,33 @@ initView()
         }
     }
 
+    private fun loginToFirebase() {
+
+        val email = login_email.text.toString().trim()
+        val password = login_password.text.toString()
+
+        firebase.signInWithEmailAndPassword(email,password)
+            .addOnCompleteListener{
+                if(it.isSuccessful){
+                    Toast.makeText(this,"user berhasil Login", Toast.LENGTH_LONG).show()
+                    Home.launchIntent(this)
+
+
+
+                }
+                else{
+                    Toast.makeText(this,"user gagal Login", Toast.LENGTH_LONG).show()
+
+                }
+
+            }
+
+    }
+
     companion object {
+
+        lateinit var currentUserData :User
+
         fun launchIntent(context: Context){
             val intent = Intent(context, Login::class.java)
             context.startActivity(intent)

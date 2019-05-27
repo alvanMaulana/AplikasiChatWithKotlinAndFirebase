@@ -5,7 +5,7 @@
                                              xmlns:app="http://schemas.android.com/apk/res-auto"
                                              xmlns:tools="http://schemas.android.com/tools">
     <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/circleImageView"
+            android:id="@+id/iv_chat_untuk_photo"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:src="@drawable/ic_launcher_background"
@@ -16,6 +16,7 @@
             />
 
     <TextView
+            android:id="@+id/tv_pesan_untuk"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:background="@drawable/bg_chat_untuk"
@@ -26,11 +27,11 @@
             android:textSize="15sp"
             android:text="Test 12324552"
             android:maxWidth="250dp"
-            app:layout_constraintEnd_toStartOf="@id/circleImageView"
+            app:layout_constraintEnd_toStartOf="@id/iv_chat_untuk_photo"
             android:layout_marginEnd="12dp"
-            app:layout_constraintTop_toTopOf="@+id/circleImageView"
+            app:layout_constraintTop_toTopOf="@+id/iv_chat_untuk_photo"
             android:layout_marginBottom="8dp"
-            app:layout_constraintBottom_toBottomOf="@id/circleImageView"
+            app:layout_constraintBottom_toBottomOf="@id/iv_chat_untuk_photo"
             app:layout_constraintVertical_bias="0.0"
             />
 

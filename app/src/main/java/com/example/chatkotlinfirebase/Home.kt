@@ -7,6 +7,10 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import java.security.AccessControlContext
 
 class Home : AppCompatActivity() {
@@ -16,13 +20,31 @@ class Home : AppCompatActivity() {
         setContentView(R.layout.activity_home)
 
         checkUserAccountSingnIn()
+
+    }
+
+    private fun fetchUser() {
+        val uid = FirebaseAuth.getInstance().uid
+        val ref =  FirebaseDatabase.getInstance().getReference("/user/$uid")
+        ref.addValueEventListener(object : ValueEventListener {
+            override fun onCancelled(p0: DatabaseError) {
+
+            }
+
+            override fun onDataChange(p0: DataSnapshot) {
+                Login.currentUserData = p0.getValue(User::class.java)!!
+
+            }
+
+        })
+
     }
 
     private fun checkUserAccountSingnIn() {
         if(FirebaseAuth.getInstance().uid.isNullOrEmpty()){
             Login.launchIntent(this)
-
         }
+        else{ fetchUser()}
     }
 
     //buat menu

@@ -1,8 +1,17 @@
 package com.example.chatkotlinfirebase
 
-class User(val name :String,
-           val photo :String,
-           val email :String){
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
 
-    constructor():this("","","")
+
+//yg ini caranya agar dapat mem parse data
+
+@Parcelize
+class User(
+           val uid :String,
+           val name :String,
+           val photo :String,
+           val email :String):Parcelable {
+
+    constructor():this("","","","")
 }
