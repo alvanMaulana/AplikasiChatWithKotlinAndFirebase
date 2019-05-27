@@ -8,7 +8,7 @@
         android:layout_margin="20dp">
 
     <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/iv_friend_photo"
+            android:id="@+id/iv_chat_history"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:src="@drawable/ic_launcher_background"
@@ -16,16 +16,31 @@
             app:civ_border_width="2dp"
 
             />
+    <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_marginLeft="15dp">
 
     <TextView
-            android:layout_margin="20dp"
-            android:id="@+id/tv_friend_name"
+            android:layout_margin="5dp"
+
+            android:id="@+id/tv_chat_history_username"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Nama Teman"
-            android:textSize="20sp"
+            android:textSize="15sp"
             android:textStyle="bold"
             android:textColor="#000"
             />
+        <TextView
+                android:layout_margin="5dp"
+                android:id="@+id/tv_chat_history_lastest_message"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Pesan Terakhir"
+                android:textSize="13sp"
+                />
+    </LinearLayout>
 
 </LinearLayout>

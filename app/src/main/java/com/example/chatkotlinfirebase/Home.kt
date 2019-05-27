@@ -7,19 +7,95 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.*
+import com.xwray.groupie.GroupAdapter
+import com.xwray.groupie.ViewHolder
+import kotlinx.android.synthetic.main.activity_home.*
 import java.security.AccessControlContext
 
 class Home : AppCompatActivity() {
+    val adapter = GroupAdapter<ViewHolder>()
+    val pesanMap = HashMap<String?,Message?>()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
 
+        adapter.setOnItemClickListener { item, view ->
+
+
+
+            val user = item as AdapterChatHistory
+
+            val intent = Intent(view.context,ChatRoomActivity::class.java)
+            //jika mau menggukan methode ini harus menggunakan parse label di kelas User
+            intent.putExtra(FriendListActivity.FRIEND_KEY, user.dataTeman)
+            startActivity(intent)
+
+        }
+
         checkUserAccountSingnIn()
+
+        loadDataPesan()
+
+    }
+
+    private  fun refreshAdapter(){
+        adapter.clear()
+        pesanMap.values.forEach {
+            val mess = it ?:return //error handling like if else
+            adapter.add(AdapterChatHistory(mess))
+
+        }
+
+    }
+
+    private fun loadDataPesan() {
+
+        val MyId = FirebaseAuth.getInstance().uid
+        val pesanTerakhir = FirebaseDatabase.getInstance().getReference("pesan-terakhir/$MyId")
+
+        pesanTerakhir.addChildEventListener(object  : ChildEventListener{
+            override fun onCancelled(p0: DatabaseError) {
+
+            }
+
+            override fun onChildMoved(p0: DataSnapshot, p1: String?) {
+            }
+
+            override fun onChildChanged(p0: DataSnapshot, p1: String?) {
+
+                //jika ingin menampilkan data pada saat di rubah
+                val chatMessage = p0.getValue(Message::class.java)
+                pesanMap[p0.key] = chatMessage
+                refreshAdapter()
+
+
+
+            }
+
+            override fun onChildAdded(p0: DataSnapshot, p1: String?) {
+
+                //jika ingin menampilkan data pada saat ditambah
+                val chatMessage = p0.getValue(Message::class.java)
+                adapter.add(AdapterChatHistory(chatMessage!!))
+                refreshAdapter()
+
+
+            }
+
+            override fun onChildRemoved(p0: DataSnapshot) {
+            }
+
+
+        })
+        rv_home_history.adapter = adapter
+
+
+
+
+
 
     }
 

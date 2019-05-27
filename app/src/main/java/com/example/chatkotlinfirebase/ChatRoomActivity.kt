@@ -58,6 +58,7 @@ class ChatRoomActivity : AppCompatActivity() {
                     if(messageCollection.fromId == FirebaseAuth.getInstance().uid)
                     {
                         adapter.add(AdapterPesanUntuk(messageCollection.text,Login.currentUserData))
+
                         //disini tambahkan foto kita
                     }
                     else {
@@ -114,17 +115,21 @@ class ChatRoomActivity : AppCompatActivity() {
             .addOnSuccessListener {
 //                Toast.makeText(this,"berhasil mengirim pesan", Toast.LENGTH_LONG).show()
                 et_chat_room_chat_message.text.clear()
+                rv_chat_room_list.smoothScrollToPosition(adapter.itemCount-1)
+
+                messageDbReferenceTo.setValue(
+                    Message(id,fromId,toId,pesan,time)
+                )
             }
 
         //menyimpan ke dua database masing masing user
 
+        val  pesanTerakhir = FirebaseDatabase.getInstance().getReference("pesan-terakhir/$fromId/$toId")
+        val  pesanTerakhirUntuk = FirebaseDatabase.getInstance().getReference("pesan-terakhir/$toId/$fromId")
 
-        messageDbReferenceTo.setValue(
-            Message(id,fromId,toId,pesan,time)
-        )
-//            .addOnSuccessListener {
-//                Toast.makeText(this,"berhasil mengirim pesan ke teman ", Toast.LENGTH_LONG).show()
-//            }
+
+        pesanTerakhir.setValue(Message(id,fromId,toId,pesan,time))
+        pesanTerakhirUntuk.setValue(Message(id,fromId,toId,pesan,time))
     }
 
     companion object {

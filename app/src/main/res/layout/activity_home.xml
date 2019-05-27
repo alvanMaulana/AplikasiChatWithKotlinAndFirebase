@@ -9,11 +9,14 @@
         android:gravity="center"
         tools:context=".Home">
 
-    <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Selamat Datang"
-            android:textSize="50dp"/>
+  <android.support.v7.widget.RecyclerView
+          android:id="@+id/rv_home_history"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+          >
+
+  </android.support.v7.widget.RecyclerView>
 
 
 
