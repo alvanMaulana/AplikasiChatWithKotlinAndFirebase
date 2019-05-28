@@ -24,7 +24,7 @@ class Home : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
-        FirebaseDatabase.getInstance().setPersistenceEnabled(true)
+
 
 
         adapter.setOnItemClickListener { item, view ->
@@ -135,7 +135,7 @@ class Home : AppCompatActivity() {
         if(FirebaseAuth.getInstance().uid.isNullOrEmpty()){
             Login.launchIntent(this)
         }
-        else{ fetchUser()}
+        else{ fetchUser() }
     }
 
     //buat menu
