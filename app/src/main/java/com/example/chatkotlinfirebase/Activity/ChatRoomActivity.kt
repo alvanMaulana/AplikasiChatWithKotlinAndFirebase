@@ -1,10 +1,14 @@
-package com.example.chatkotlinfirebase
+package com.example.chatkotlinfirebase.Activity
 
 import android.content.Context
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Toast
+import com.example.chatkotlinfirebase.Adapter.AdapterPesanDari
+import com.example.chatkotlinfirebase.Adapter.AdapterPesanUntuk
+import com.example.chatkotlinfirebase.Model.Message
+import com.example.chatkotlinfirebase.Model.User
+import com.example.chatkotlinfirebase.R
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.ChildEventListener
 import com.google.firebase.database.DataSnapshot
@@ -15,7 +19,7 @@ import com.xwray.groupie.ViewHolder
 import kotlinx.android.synthetic.main.activity_chat_room.*
 
 class ChatRoomActivity : AppCompatActivity() {
-    lateinit var friend :User //data tidak nul tapi datanya terlambat
+    lateinit var friend : User //data tidak nul tapi datanya terlambat
     val adapter = GroupAdapter<ViewHolder>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -57,13 +61,23 @@ class ChatRoomActivity : AppCompatActivity() {
 
                     if(messageCollection.fromId == FirebaseAuth.getInstance().uid)
                     {
-                        adapter.add(AdapterPesanUntuk(messageCollection.text,Login.currentUserData))
+                        adapter.add(
+                            AdapterPesanUntuk(
+                                messageCollection.text,
+                                Login.currentUserData
+                            )
+                        )
 
                         //disini tambahkan foto kita
                     }
                     else {
 
-                        adapter.add(AdapterPesanDari(messageCollection.text,friend))
+                        adapter.add(
+                            AdapterPesanDari(
+                                messageCollection.text,
+                                friend
+                            )
+                        )
                         //disini tambahkan foto orang lain
 
                     }
@@ -110,7 +124,7 @@ class ChatRoomActivity : AppCompatActivity() {
 
 
         messageDbReference.setValue(
-            Message(id,fromId,toId,pesan,time)
+            Message(id, fromId, toId, pesan, time)
         )
             .addOnSuccessListener {
 //                Toast.makeText(this,"berhasil mengirim pesan", Toast.LENGTH_LONG).show()
@@ -118,7 +132,7 @@ class ChatRoomActivity : AppCompatActivity() {
                 rv_chat_room_list.smoothScrollToPosition(adapter.itemCount-1)
 
                 messageDbReferenceTo.setValue(
-                    Message(id,fromId,toId,pesan,time)
+                    Message(id, fromId, toId, pesan, time)
                 )
             }
 
@@ -128,13 +142,13 @@ class ChatRoomActivity : AppCompatActivity() {
         val  pesanTerakhirUntuk = FirebaseDatabase.getInstance().getReference("pesan-terakhir/$toId/$fromId")
 
 
-        pesanTerakhir.setValue(Message(id,fromId,toId,pesan,time))
-        pesanTerakhirUntuk.setValue(Message(id,fromId,toId,pesan,time))
+        pesanTerakhir.setValue(Message(id, fromId, toId, pesan, time))
+        pesanTerakhirUntuk.setValue(Message(id, fromId, toId, pesan, time))
     }
 
     companion object {
         fun launchIntent(context: Context){
-            val intent = Intent(context,ChatRoomActivity::class.java)
+            val intent = Intent(context, ChatRoomActivity::class.java)
             context.startActivity(intent)
 
         }

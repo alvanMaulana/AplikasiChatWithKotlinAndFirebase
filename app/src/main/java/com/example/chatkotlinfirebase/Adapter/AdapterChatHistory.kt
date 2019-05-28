@@ -1,6 +1,8 @@
-package com.example.chatkotlinfirebase
+package com.example.chatkotlinfirebase.Adapter
 
-import android.view.View
+import com.example.chatkotlinfirebase.Model.Message
+import com.example.chatkotlinfirebase.R
+import com.example.chatkotlinfirebase.Model.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -13,9 +15,9 @@ import kotlinx.android.synthetic.main.item_chat_history.view.*
 
 class AdapterChatHistory(val chat: Message) : Item<ViewHolder>(){
 
-    var dataTeman :User? = null
+    var dataTeman : User? = null
     override fun getLayout(): Int {
-        return  R.layout.item_chat_history
+        return R.layout.item_chat_history
 
     }
 

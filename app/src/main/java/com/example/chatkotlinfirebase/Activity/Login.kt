@@ -1,15 +1,13 @@
-package com.example.chatkotlinfirebase
+package com.example.chatkotlinfirebase.Activity
 
 import android.content.Context
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import com.example.chatkotlinfirebase.Model.User
+import com.example.chatkotlinfirebase.R
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
 import kotlinx.android.synthetic.main.activity_login.*
 
 class Login : AppCompatActivity() {
@@ -63,7 +61,7 @@ initView()
 
     companion object {
 
-        lateinit var currentUserData :User
+        lateinit var currentUserData : User
 
         fun launchIntent(context: Context){
             val intent = Intent(context, Login::class.java)

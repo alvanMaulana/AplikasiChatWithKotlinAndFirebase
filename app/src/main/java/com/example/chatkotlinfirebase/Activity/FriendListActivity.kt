@@ -1,9 +1,12 @@
-package com.example.chatkotlinfirebase
+package com.example.chatkotlinfirebase.Activity
 
 import android.content.Context
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import com.example.chatkotlinfirebase.Adapter.AdapterFriendList
+import com.example.chatkotlinfirebase.Model.User
+import com.example.chatkotlinfirebase.R
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -56,7 +59,7 @@ class FriendListActivity : AppCompatActivity() {
 
                         val friendItem = item as AdapterFriendList
 
-                        val intent = Intent(view.context,ChatRoomActivity::class.java)
+                        val intent = Intent(view.context, ChatRoomActivity::class.java)
                         //jika mau menggukan methode ini harus menggunakan parse label di kelas User
                         intent.putExtra(FRIEND_KEY,friendItem.user)
                         startActivity(intent)
@@ -77,7 +80,7 @@ class FriendListActivity : AppCompatActivity() {
 
         val FRIEND_KEY = "friend_key "
         fun launchIntent(context: Context){
-            val intent = Intent(context,FriendListActivity::class.java)
+            val intent = Intent(context, FriendListActivity::class.java)
             context.startActivity(intent)
         }
     }

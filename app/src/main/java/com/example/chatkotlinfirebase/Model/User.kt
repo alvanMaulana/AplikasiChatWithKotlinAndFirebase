@@ -1,4 +1,4 @@
-package com.example.chatkotlinfirebase
+package com.example.chatkotlinfirebase.Model
 
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize

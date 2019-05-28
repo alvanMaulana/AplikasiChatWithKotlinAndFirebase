@@ -1,4 +1,4 @@
-package com.example.chatkotlinfirebase
+package com.example.chatkotlinfirebase.Activity
 
 import android.app.Activity
 import android.content.Context
@@ -8,6 +8,8 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
 import android.widget.Toast
+import com.example.chatkotlinfirebase.Model.User
+import com.example.chatkotlinfirebase.R
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
@@ -39,6 +41,10 @@ class Register : AppCompatActivity() {
                 getPhotoFromPhone()
             }
 
+
+        register_login.setOnClickListener {
+            Login.launchIntent(this)
+        }
 
     }
 
@@ -79,7 +85,7 @@ class Register : AppCompatActivity() {
                     uploadPhotoToFirebase()
                 }
                 else{
-                    Toast.makeText(this,"Gagak",Toast.LENGTH_LONG).show()
+                    Toast.makeText(this,"Gagal",Toast.LENGTH_LONG).show()
 
                 }
 
@@ -138,7 +144,7 @@ class Register : AppCompatActivity() {
 
     companion object {
         fun launchIntent(context: Context){
-            val intent = Intent(context,Register::class.java)
+            val intent = Intent(context, Register::class.java)
             context.startActivity(intent)
         }
     }

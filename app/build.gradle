@@ -6,7 +6,7 @@ apply plugin: 'kotlin-android-extensions'
 
 //mem-parse atau membawa data
 
-androidExtensions{
+androidExtensions {
     experimental = true
 }
 

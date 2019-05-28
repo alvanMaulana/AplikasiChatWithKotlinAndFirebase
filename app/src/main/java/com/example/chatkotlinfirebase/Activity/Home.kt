@@ -1,4 +1,4 @@
-package com.example.chatkotlinfirebase
+package com.example.chatkotlinfirebase.Activity
 
 import android.content.Context
 import android.content.Intent
@@ -6,21 +6,26 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import com.example.chatkotlinfirebase.Adapter.AdapterChatHistory
+import com.example.chatkotlinfirebase.Model.Message
+import com.example.chatkotlinfirebase.Model.User
+import com.example.chatkotlinfirebase.R
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.ViewHolder
 import kotlinx.android.synthetic.main.activity_home.*
-import java.security.AccessControlContext
 
 class Home : AppCompatActivity() {
     val adapter = GroupAdapter<ViewHolder>()
-    val pesanMap = HashMap<String?,Message?>()
+    val pesanMap = HashMap<String?, Message?>()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
+        FirebaseDatabase.getInstance().setPersistenceEnabled(true)
+
 
         adapter.setOnItemClickListener { item, view ->
 
@@ -28,7 +33,7 @@ class Home : AppCompatActivity() {
 
             val user = item as AdapterChatHistory
 
-            val intent = Intent(view.context,ChatRoomActivity::class.java)
+            val intent = Intent(view.context, ChatRoomActivity::class.java)
             //jika mau menggukan methode ini harus menggunakan parse label di kelas User
             intent.putExtra(FriendListActivity.FRIEND_KEY, user.dataTeman)
             startActivity(intent)
@@ -39,6 +44,13 @@ class Home : AppCompatActivity() {
 
         loadDataPesan()
 
+        initView()
+    }
+
+    private fun initView() {
+        fab_home.setOnClickListener{
+            FriendListActivity.launchIntent(this)
+        }
     }
 
     private  fun refreshAdapter(){
@@ -55,6 +67,8 @@ class Home : AppCompatActivity() {
 
         val MyId = FirebaseAuth.getInstance().uid
         val pesanTerakhir = FirebaseDatabase.getInstance().getReference("pesan-terakhir/$MyId")
+        pesanTerakhir.keepSynced(true)
+
 
         pesanTerakhir.addChildEventListener(object  : ChildEventListener{
             override fun onCancelled(p0: DatabaseError) {
@@ -102,6 +116,7 @@ class Home : AppCompatActivity() {
     private fun fetchUser() {
         val uid = FirebaseAuth.getInstance().uid
         val ref =  FirebaseDatabase.getInstance().getReference("/user/$uid")
+        ref.keepSynced(true)
         ref.addValueEventListener(object : ValueEventListener {
             override fun onCancelled(p0: DatabaseError) {
 
@@ -155,9 +170,10 @@ class Home : AppCompatActivity() {
     companion object {
           fun  launchIntent(context: Context){
 
-            val intent = Intent(context,Home::class.java)
+            val intent = Intent(context, Home::class.java)
             context.startActivity(intent)
         }
+
     }
 }
 

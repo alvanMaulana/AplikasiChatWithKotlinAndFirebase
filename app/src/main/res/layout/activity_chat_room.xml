@@ -5,7 +5,7 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ChatRoomActivity">
+        tools:context=".Activity.ChatRoomActivity">
     
     <android.support.constraint.Guideline
             android:id="@+id/guidline"
@@ -57,6 +57,7 @@
            android:layout_height="0dp"
            app:layoutManager="android.support.v7.widget.LinearLayoutManager"
            app:stackFromEnd="true"
+
            app:layout_constraintVertical_weight="1"
            app:layout_constraintBottom_toTopOf="@+id/guidline2"
            app:layout_constraintTop_toTopOf="parent"
